@@ -32,7 +32,11 @@ interface IndicatorHistory {
   performance: number;
 }
 
-export default function IndicatorDetail() {
+interface IndicatorDetailProps {
+  onLogout?: () => void;
+}
+
+export default function IndicatorDetail({ onLogout }: IndicatorDetailProps) {
   const [location, navigate] = useLocation();
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const { toast } = useToast();
@@ -61,7 +65,7 @@ export default function IndicatorDetail() {
   if (!indicator || !indicatorInfo) {
     return (
       <div className="min-h-screen bg-slate-50">
-        <Header title="Indicador não encontrado" subtitle="UBS Centro" />
+        <Header title="Indicador não encontrado" subtitle="UBS Centro" onLogout={onLogout} />
       </div>
     );
   }
@@ -120,6 +124,7 @@ export default function IndicatorDetail() {
         subtitle="UBS Centro"
         showBackButton={true}
         onBack={handleBack}
+        onLogout={onLogout}
         rightContent={
           <Button 
             variant="ghost" 

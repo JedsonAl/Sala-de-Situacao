@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { BarChart3, ArrowLeft } from "lucide-react";
-import { useAuth } from "@/App";
 
 interface HeaderProps {
   title: string;
@@ -8,6 +7,7 @@ interface HeaderProps {
   showBackButton?: boolean;
   onBack?: () => void;
   rightContent?: React.ReactNode;
+  onLogout?: () => void;
 }
 
 export default function Header({ 
@@ -15,9 +15,9 @@ export default function Header({
   subtitle, 
   showBackButton = false, 
   onBack,
-  rightContent 
+  rightContent,
+  onLogout
 }: HeaderProps) {
-  const { logout } = useAuth();
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -44,14 +44,16 @@ export default function Header({
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-sm text-gray-600">{subtitle}</span>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={logout}
-              className="text-red-600 hover:text-red-500"
-            >
-              Sair
-            </Button>
+            {onLogout && (
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={onLogout}
+                className="text-red-600 hover:text-red-500"
+              >
+                Sair
+              </Button>
+            )}
           </div>
         </div>
       </div>

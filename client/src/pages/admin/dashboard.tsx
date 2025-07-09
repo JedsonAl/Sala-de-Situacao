@@ -38,7 +38,11 @@ interface DbSettings {
   password: string;
 }
 
-export default function AdminDashboard() {
+interface AdminDashboardProps {
+  onLogout?: () => void;
+}
+
+export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState("municipalities");
   const [isAddMunicipalityOpen, setIsAddMunicipalityOpen] = useState(false);
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
@@ -153,6 +157,7 @@ export default function AdminDashboard() {
         title="Painel Administrativo" 
         subtitle="Administrador Geral" 
         showBackButton={false}
+        onLogout={onLogout}
       />
       
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

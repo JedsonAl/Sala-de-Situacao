@@ -61,20 +61,25 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 function Router() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
+  const AdminDashboardWithLogout = () => <AdminDashboard onLogout={logout} />;
+  const ResponsibleDashboardWithLogout = () => <ResponsibleDashboard onLogout={logout} />;
+  const CategoryWithLogout = (props: any) => <Category {...props} onLogout={logout} />;
+  const IndicatorWithLogout = (props: any) => <Indicator {...props} onLogout={logout} />;
 
   return (
     <Switch>
       {user?.role === "admin" ? (
         <>
-          <Route path="/" component={AdminDashboard} />
-          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/" component={AdminDashboardWithLogout} />
+          <Route path="/admin" component={AdminDashboardWithLogout} />
         </>
       ) : (
         <>
-          <Route path="/" component={ResponsibleDashboard} />
-          <Route path="/category/:category" component={Category} />
-          <Route path="/indicator/:code" component={Indicator} />
+          <Route path="/" component={ResponsibleDashboardWithLogout} />
+          <Route path="/category/:category" component={CategoryWithLogout} />
+          <Route path="/indicator/:code" component={IndicatorWithLogout} />
         </>
       )}
       <Route component={NotFound} />

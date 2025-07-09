@@ -15,7 +15,11 @@ interface Indicator {
   unitId: number;
 }
 
-export default function Category() {
+interface CategoryProps {
+  onLogout?: () => void;
+}
+
+export default function Category({ onLogout }: CategoryProps) {
   const [location, navigate] = useLocation();
   const categoryParam = location.split("/category/")[1];
   
@@ -35,7 +39,7 @@ export default function Category() {
   if (!categoryInfo) {
     return (
       <div className="min-h-screen bg-slate-50">
-        <Header title="Categoria não encontrada" subtitle="UBS Centro" />
+        <Header title="Categoria não encontrada" subtitle="UBS Centro" onLogout={onLogout} />
       </div>
     );
   }
@@ -57,6 +61,7 @@ export default function Category() {
         subtitle="UBS Centro"
         showBackButton={true}
         onBack={() => navigate("/")}
+        onLogout={onLogout}
       />
       
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
