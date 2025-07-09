@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, createContext, useContext } from "react";
 import NotFound from "@/pages/not-found";
-import Login from "@/pages/login";
+import LoginStandalone from "@/pages/login-standalone";
 import AdminDashboard from "@/pages/admin/dashboard";
 import ResponsibleDashboard from "@/pages/responsible/dashboard";
 import Category from "@/pages/responsible/category";
@@ -96,10 +96,10 @@ function App() {
 }
 
 function AppContent() {
-  const { user } = useAuth();
+  const { user, login } = useAuth();
 
   if (!user) {
-    return <Login />;
+    return <LoginStandalone onLogin={login} />;
   }
 
   return <Router />;

@@ -4,15 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BarChart3 } from "lucide-react";
-import { useAuth } from "@/App";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 
-export default function Login() {
+interface LoginProps {
+  onLogin: (user: any) => void;
+}
+
+export default function LoginStandalone({ onLogin }: LoginProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,7 +25,7 @@ export default function Login() {
       const response = await apiRequest("POST", "/api/auth/login", { username, password });
       const data = await response.json();
       
-      login(data.user);
+      onLogin(data.user);
       toast({
         title: "Login realizado com sucesso!",
         description: "Bem-vindo à Sala de Situação",
