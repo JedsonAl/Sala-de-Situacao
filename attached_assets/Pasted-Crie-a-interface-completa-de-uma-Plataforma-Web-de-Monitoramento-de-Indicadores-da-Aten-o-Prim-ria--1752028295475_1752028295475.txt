@@ -1,0 +1,74 @@
+Crie a interface completa de uma Plataforma Web de Monitoramento de Indicadores da Atenção Primária à Saúde (APS), baseada nas diretrizes a seguir. O foco é gerar um layout limpo, funcional, com excelente usabilidade e arquitetura escalável. Utilize HTML, CSS moderno, python ou React para estruturar as telas principais da aplicação.
+________________________________________
+🔐 Módulo de Autenticação
+Tela de Login
+•	Campos: E-mail ou Nome de Usuário, Senha
+•	Botão: “Entrar”
+•	Link: “Esqueci minha senha”
+•	Estilo: Interface minimalista, clara, com destaque para acessibilidade.
+________________________________________
+⚙️ Módulo Administrativo (acesso exclusivo do Administrador Geral)
+1. Tela de Gestão de Municípios e Unidades de Saúde:
+•	Tabela paginada com filtros (nome, IBGE, CNES)
+•	Botões: "Adicionar Novo", "Editar", "Excluir"
+2. Tela de Gestão de Responsáveis e Equipes:
+•	Formulário de cadastro (Nome, E-mail, Senha inicial)
+•	Tela de vinculação: Dropdown para Unidade, checkboxes para equipes (INEs) da unidade.
+3. Tela de Configuração de Banco de Dados (PostgreSQL):
+•	Campos: Host, Porta, Banco, Usuário, Senha (tipo password)
+•	Botão "Testar Conexão" e "Salvar"
+•	Aviso: segurança na manipulação dos dados (não salvar no código fonte)
+________________________________________
+📊 Dashboard do Responsável de Unidade (Pós-login)
+Componentes Visuais:
+•	Medidor de Desempenho Geral (gauge)
+•	Cards: Boas Práticas, Saúde Bucal, eMulti (com média de cada)
+•	Seção de Alertas: Indicadores em queda
+•	Navegação via clique nos cards para as categorias
+________________________________________
+📁 Telas de Categorias de Indicadores
+Organização com ícones e seções claras:
+•	Categoria C (C.1 a C.7)
+•	Categoria B (B.1 a B.6)
+•	Categoria M (M.1 e M.2)
+________________________________________
+🧩 Tela de Indicador (Ex: C.3 - Gestante)
+Layout padrão para todos os indicadores:
+•	Título do Indicador
+•	Card com medidor + classificação + valores absolutos
+•	Ajuda Contextual com ícone (modal explicativo)
+•	Gráfico Histórico (linhas – últimos 12 meses)
+•	Gráfico de Componentes (barras – subindicadores/boas práticas)
+•	Lista Nominal de Acompanhamento:
+o	Filtros: ACS, Status, Faixa Etária
+o	Tabela com:
+	Colunas fixas: Nome, CNS, DN, ACS
+	Colunas dinâmicas por critério:
+	✅ Alcançado: ícone verde + tooltip com data
+	❌ Pendente: ícone vermelho + texto explicativo
+o	Funcionalidades: Busca por nome/CNS, Exportar (PDF/XLSX)
+________________________________________
+🔄 Fluxo de Navegação
+Siga o diagrama de fluxo:
+•	Login
+→ Perfil: Administrador Geral
+→ Telas Administrativas
+→ Gestão de Municípios / Unidades / Responsáveis
+→ Configuração de BD
+→ Perfil: Responsável de Unidade
+→ Dashboard Geral
+→ Categorias (Boas Práticas, Bucal, eMulti)
+→ Indicadores
+→ Lista Nominal
+________________________________________
+🖌️ Requisitos Visuais e Técnicos
+•	Layout responsivo (mobile/desktop)
+•	Componentes reutilizáveis
+•	Design limpo, claro, com ícones descritivos e paleta profissional
+•	Tipografia acessível e legível
+•	Utilizar cards, gráficos, tabelas interativas
+•	Frameworks sugeridos: python
+________________________________________
+Saída esperada:
+Um projeto estruturado com as páginas principais implementadas (mesmo que com dados mock), mostrando a navegação funcional, componentes principais (dashboard, login, tabela, cards, gráficos) e estrutura modular para expansão futura.
+

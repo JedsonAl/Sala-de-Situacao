@@ -1,0 +1,95 @@
+Especificação de Requisitos: Plataforma de Monitoramento de Indicadores da APS
+Sumário Executivo
+Este documento detalha os requisitos funcionais e técnicos para o desenvolvimento de uma plataforma web de monitoramento de indicadores da Atenção Primária à Saúde (APS). O sistema visa fornecer a gestores e equipes de saúde (eSF, eAP, eSB, eMulti) uma ferramenta para análise de desempenho em tempo real, gestão proativa de listas nominais e acompanhamento da qualidade do cuidado, com base nas regras do novo modelo de financiamento.
+________________________________________
+1. Arquitetura e Módulos do Sistema
+1.1. Módulo de Autenticação e Gestão de Acesso (RBAC - Role-Based Access Control)
+Este módulo é a porta de entrada do sistema e garante a segurança e a segregação dos dados.
+•	Tela de Login:
+o	Função: Autenticar usuários com segurança.
+o	Campos: E-mail (ou nome de usuário) e Senha.
+o	Funcionalidades: Link para "Esqueci minha senha".
+•	Perfis de Usuário e Permissões:
+Perfil de Usuário	Descrição	Pode Cadastrar?	Acesso aos Dados
+Administrador Geral	Possui controle total sobre o sistema. Responsável pela configuração inicial e gestão de todos os usuários e entidades.	Sim (Municípios, Unidades, Responsáveis)	Todas as unidades de todos os municípios.
+Responsável de Unidade	Gestor ou profissional designado para monitorar o desempenho de uma ou mais unidades de saúde específicas.	Não	Apenas os dados das unidades/equipes às quais está vinculado.
+1.2. Módulo Administrativo (Acesso Exclusivo ao Administrador Geral)
+Área dedicada à configuração e parametrização do sistema.
+•	Gestão de Entidades (Municípios e Unidades de Saúde):
+o	Função: Cadastrar, editar e visualizar os municípios e as Unidades Básicas de Saúde (UBS) que utilizarão o sistema.
+o	Interface: Tela com listagem paginada e com filtros (por nome, código IBGE/CNES). Botões de ação para "Adicionar Novo" e "Editar".
+•	Gestão e Vinculação de Responsáveis e Equipes:
+o	Função: Cadastrar os usuários do tipo "Responsável de Unidade" e associá-los às suas respectivas equipes.
+o	Interface:
+1.	Cadastro de Responsável: Formulário para criar um novo login (Nome, E-mail, Senha inicial).
+2.	Tela de Vinculação: Uma interface intuitiva para associar um responsável a uma ou mais equipes (INEs). O administrador deverá selecionar a Unidade de Saúde e, em seguida, marcar as equipes (eSF, eSB, eMulti) que estarão sob a gerência daquele responsável.
+1.3. Módulo de Configuração de Conexão com o Banco de Dados
+•	Função: Permitir ao Administrador Geral configurar a conexão com o banco de dados PostgreSQL do e-SUS PEC, oferecendo flexibilidade para ambientes de produção (servidor remoto) e homologação (localhost).
+•	Interface: Tela segura com formulário para inserção dos parâmetros de conexão.
+o	Host do Servidor: (ex: localhost ou 192.168.1.100)
+o	Porta: (ex: 5432)
+o	Nome do Banco de Dados: (ex: esus)
+o	Usuário: (ex: esus_leitura)
+o	Senha: Campo do tipo "password".
+•	Segurança: As credenciais devem ser armazenadas de forma segura no ambiente do servidor (ex: variáveis de ambiente), e não diretamente no código ou em arquivos de configuração de texto plano.
+________________________________________
+2. Estrutura das Telas de Análise de Indicadores
+2.1. Dashboard do Responsável (Tela Principal Pós-Login)
+•	Função: Oferecer ao Responsável de Unidade uma visão consolidada e imediata do desempenho de suas equipes.
+•	Componentes Visuais (Widgets):
+o	Índice de Desempenho Geral: Um medidor (gauge) principal mostrando uma média ponderada do alcance de todos os indicadores.
+o	Resumo por Categoria: Cards resumidos para "Boas Práticas", "Saúde Bucal" e "eMulti", exibindo o desempenho médio de cada categoria.
+o	Alertas e Notificações: Uma seção destacando os indicadores com desempenho "Regular" ou em queda.
+o	Navegação: Os cards de categoria funcionarão como links diretos para as respectivas telas de análise detalhada.
+2.2. Telas de Categoria de Indicadores
+O sistema será organizado em três seções principais, cada uma com um ícone distintivo para fácil identificação.
+•	Subtelas: C.1 (Acesso), C.2 (Infantil), C.3 (Gestante), C.4 (Diabetes), C.5 (Hipertensão), C.6 (Idoso), C.7 (Mulher).
+•	Subtelas: B.1 (1ª Consulta), B.2 (Trat. Concluído), B.3 (Exodontias), B.4 (Escovação), B.5 (Preventivos), B.6 (ART).
+•	Subtelas: M.1 (Média de Atendimentos), M.2 (Ações Interprofissionais).
+2.3. Estrutura Padrão da Tela de Detalhe do Indicador
+Cada uma das 15 subtelas de indicadores seguirá um layout padronizado para garantir consistência e usabilidade.
+•	Visão Geral do Indicador:
+o	Título: Nome completo do indicador.
+o	Resumo: Medidor (gauge) ou card numérico com o desempenho geral, classificação (Ótimo, Bom, etc.) e os números absolutos do denominador e numerador.
+o	Ajuda Contextual: Um ícone de "ajuda" (?) que, ao ser clicado, exibe um modal com a definição do indicador e dicas de como melhorar a pontuação.
+•	Análise Histórica e de Componentes:
+o	Gráfico Histórico: Gráfico de linhas mostrando a evolução do indicador nos últimos 6 ou 12 meses.
+o	Gráfico de Componentes: Gráfico de barras horizontais detalhando o desempenho de cada boa prática ou critério que compõe o indicador, permitindo identificar os principais gargalos.
+•	Lista Nominal de Acompanhamento:
+o	Função: O coração operacional da ferramenta. Tabela interativa para a gestão do cuidado individual.
+o	Filtros Avançados: Filtros por ACS responsável, status do indicador (pendente, em dia), faixa etária, etc.
+o	Tabela:
+	Colunas Fixas: Nome do Cidadão, CNS, Data de Nascimento, Nome do ACS.
+	Colunas Dinâmicas: Uma coluna para cada critério avaliado no indicador, com formatação condicional clara:
+	✅ Alcançado: Ícone verde com tooltip informativo (ex: "Consulta realizada em 10/07/2024").
+	❌ Pendente: Ícone vermelho (ex: "Aguardando solicitação de exame").
+o	Funcionalidades Essenciais:
+	Busca Rápida: Campo de pesquisa por nome ou CNS.
+	Exportação: Botões para exportar a lista (conforme os filtros aplicados) para PDF (formato de relatório) e XLSX (para trabalho em planilhas).
+________________________________________
+3. Fluxo de Navegação Sugerido
+Generated mermaid
+graph TD
+    A(Login) --> B{Verificar Perfil};
+    B -- Administrador Geral --> C[Tela Administrativa];
+    C --> D[Gestão de Municípios];
+    C --> E[Gestão de Unidades];
+    C --> F[Gestão de Responsáveis e Vínculos];
+
+    B -- Responsável de Unidade --> G[Dashboard Geral da Unidade];
+    G --> H(Boas Práticas);
+    G --> I(Saúde Bucal);
+    G --> J(eMulti);
+
+    H --> K[Detalhe do Indicador C.x];
+    I --> L[Detalhe do Indicador B.x];
+    J --> M[Detalhe do Indicador M.x];
+
+    K --> N((Lista Nominal));
+    L --> N;
+    M --> N;
+
+    style A fill:#2962ff,stroke:#fff,stroke-width:2px,color:#fff
+    style C fill:#c51162,stroke:#fff,stroke-width:2px,color:#fff
+    style G fill:#00bfa5,stroke:#fff,stroke-width:2px,color:#fff```
+
