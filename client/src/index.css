@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(222, 84%, 4.9%);
+  --muted: hsl(210, 40%, 98%);
+  --muted-foreground: hsl(215, 16.3%, 46.9%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(222, 84%, 4.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(222, 84%, 4.9%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(221, 83%, 53%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(222, 84%, 4.9%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(222, 84%, 4.9%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(221, 83%, 53%);
+  --radius: 0.5rem;
+  --chart-1: hsl(12, 76%, 61%);
+  --chart-2: hsl(173, 58%, 39%);
+  --chart-3: hsl(197, 37%, 24%);
+  --chart-4: hsl(43, 74%, 66%);
+  --chart-5: hsl(27, 87%, 67%);
+}
+
+.dark {
+  --background: hsl(222, 84%, 4.9%);
+  --foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 32%, 17%);
+  --muted-foreground: hsl(215, 16.3%, 57%);
+  --popover: hsl(222, 84%, 4.9%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --card: hsl(222, 84%, 4.9%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 32%, 17%);
+  --input: hsl(217, 32%, 17%);
+  --primary: hsl(221, 83%, 53%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(217, 32%, 17%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(217, 32%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(221, 83%, 53%);
+  --chart-1: hsl(220, 70%, 50%);
+  --chart-2: hsl(160, 60%, 45%);
+  --chart-3: hsl(30, 80%, 55%);
+  --chart-4: hsl(280, 65%, 60%);
+  --chart-5: hsl(340, 75%, 55%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* Custom Healthcare Theme Colors */
+:root {
+  /* Primary Healthcare Blue */
+  --healthcare-primary: hsl(221, 83%, 53%);
+  --healthcare-primary-light: hsl(221, 83%, 95%);
+  --healthcare-primary-dark: hsl(221, 83%, 45%);
+  
+  /* Status Colors */
+  --healthcare-success: hsl(142, 71%, 45%);
+  --healthcare-warning: hsl(38, 92%, 50%);
+  --healthcare-danger: hsl(0, 84%, 60%);
+  --healthcare-info: hsl(199, 89%, 48%);
+  
+  /* Neutral Grays */
+  --healthcare-gray-50: hsl(210, 40%, 98%);
+  --healthcare-gray-100: hsl(210, 40%, 96%);
+  --healthcare-gray-200: hsl(214, 32%, 91%);
+  --healthcare-gray-300: hsl(213, 27%, 84%);
+  --healthcare-gray-400: hsl(215, 20%, 65%);
+  --healthcare-gray-500: hsl(215, 16%, 47%);
+  --healthcare-gray-600: hsl(215, 19%, 35%);
+  --healthcare-gray-700: hsl(215, 25%, 27%);
+  --healthcare-gray-800: hsl(217, 33%, 17%);
+  --healthcare-gray-900: hsl(222, 84%, 5%);
+}
+
+/* Custom gauge animation */
+@keyframes gauge-fill {
+  from {
+    stroke-dashoffset: 100%;
+  }
+  to {
+    stroke-dashoffset: var(--gauge-offset, 0%);
+  }
+}
+
+.gauge-path {
+  animation: gauge-fill 1.5s ease-out forwards;
+}
+
+/* Custom chart tooltips */
+.chart-tooltip {
+  @apply bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-sm;
+}
+
+/* Performance status badges */
+.status-excellent {
+  @apply bg-green-100 text-green-800 border-green-200;
+}
+
+.status-good {
+  @apply bg-blue-100 text-blue-800 border-blue-200;
+}
+
+.status-regular {
+  @apply bg-yellow-100 text-yellow-800 border-yellow-200;
+}
+
+.status-critical {
+  @apply bg-red-100 text-red-800 border-red-200;
+}
+
+/* Custom scrollbar for tables */
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded hover:bg-gray-400;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  @apply animate-spin rounded-full border-2 border-gray-200 border-t-primary;
+}
+
+/* Transition utilities */
+.transition-colors-shadow {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* Focus styles for accessibility */
+.focus-healthcare {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-shadow duration-200 ease-in-out hover:shadow-md;
+}
+
+/* Button variants */
+.btn-healthcare-primary {
+  @apply bg-primary text-primary-foreground hover:bg-opacity-90 focus-healthcare;
+}
+
+.btn-healthcare-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-opacity-80 focus-healthcare;
+}
+
+.btn-healthcare-success {
+  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+}
+
+.btn-healthcare-warning {
+  @apply bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500;
+}
+
+.btn-healthcare-danger {
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+/* Table styles */
+.table-healthcare th {
+  @apply bg-gray-50 text-gray-700 font-medium text-sm uppercase tracking-wider;
+}
+
+.table-healthcare td {
+  @apply text-gray-900 text-sm;
+}
+
+.table-healthcare tbody tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Indicator status icons */
+.indicator-achieved {
+  @apply text-green-600;
+}
+
+.indicator-pending {
+  @apply text-red-600;
+}
+
+.indicator-partial {
+  @apply text-yellow-600;
+}
+
+/* Performance progress bars */
+.progress-excellent {
+  @apply bg-green-600;
+}
+
+.progress-good {
+  @apply bg-blue-600;
+}
+
+.progress-regular {
+  @apply bg-yellow-600;
+}
+
+.progress-critical {
+  @apply bg-red-600;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-40;
+}
+
+/* Gradient backgrounds */
+.gradient-healthcare {
+  background: linear-gradient(135deg, hsl(221, 83%, 95%) 0%, hsl(210, 40%, 98%) 100%);
+}
+
+/* Custom shadows */
+.shadow-healthcare {
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1), 0 2px 4px -1px rgba(59, 130, 246, 0.06);
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    @apply hidden;
+  }
+  
+  .print-full-width {
+    @apply w-full;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .mobile-stack {
+    @apply flex-col space-y-2 space-x-0;
+  }
+  
+  .mobile-full-width {
+    @apply w-full;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: hsl(0, 0%, 0%);
+    --ring: hsl(0, 0%, 0%);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .gauge-path {
+    animation: none;
+  }
+  
+  * {
+    @apply transition-none;
+  }
+}
